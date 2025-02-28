@@ -32,6 +32,34 @@ lead_results = api.get('lead', params={
 })
 ```
 
+### Utility Scripts
+
+#### Environment Synchronization
+
+The repository includes a utility script `fetch_custom_fields.py` that helps synchronize various configurations between Close.io environments (e.g., production to development). This script can sync:
+
+- Custom fields (Lead, Contact, Opportunity, Activity)
+- Custom activity types
+- Lead statuses
+- Opportunity statuses
+
+Usage:
+```bash
+# Set up environment variables in .env file
+CLOSEIO_API_KEY_PROD=your_production_api_key
+CLOSEIO_API_KEY_DEV=your_development_api_key
+
+# Run the script
+python sync_fields_to_dev.py
+```
+
+The script will:
+1. Fetch all configurations from the production environment
+2. Save the raw data to JSON files in the `data/` directory
+3. Create missing items in the development environment
+4. Remove items from development that don't exist in production
+5. Generate detailed reports of all changes
+
 ### Example scripts
 
 Check out [https://github.com/closeio/closeio-api-scripts](https://github.com/closeio/closeio-api-scripts) for helpful scripts already written to accomplish some common tasks.
